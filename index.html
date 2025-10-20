@@ -150,6 +150,20 @@ img { max-width: 100%; display: block; }
 .finalWrap .footer { margin-top: 12px; opacity: .9; font-size: .9em; }
 
 .hidden { display: none !important; }
+/* Swipe button styling */
+#swipeHint {
+  opacity: 0.8;
+  font-style: italic;
+  pointer-events: none; /* prevents it from triggering clicks */
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+/* Subtle breathing pulse */
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
 </style>
 </head>
 
@@ -168,10 +182,12 @@ img { max-width: 100%; display: block; }
 <section class="screen centered hidden" id="deckScreen">
   <div class="breathe"><strong>Breathe.</strong><span>Let this message move through you.</span></div>
   <div class="stage"><div class="deck" id="deck"></div></div>
-  <div class="pickRow">
-    <button class="btn btn-ghost" id="shuffleDeck">Shuffle</button>
-    <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
-  </div>
+ <div class="pickRow">
+  <button class="btn btn-ghost" id="shuffleDeck">Shuffle</button>
+  <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
+  <button class="btn btn-ghost" id="swipeHint">Swipe</button>
+</div>
+
 </section>
 
 <!-- REVEAL -->

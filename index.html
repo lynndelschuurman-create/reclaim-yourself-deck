@@ -5,20 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=yes" />
 <title>Reclaim Yourself — Interactive Deck</title>
 <link rel="icon" href="favicon.png" />
-
 <style>
-.screen {
-  min-height: 100dvh;
-  height: auto;
-  padding: clamp(16px, 4vw, 32px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  overflow: visible !important;
-}
-
 :root {
   --bg:#e9bfb6;
   --ink:#5a3e34;
@@ -26,39 +13,42 @@
   --btnText:#3e2b25;
 }
 
+/* Page base */
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
   background: var(--bg);
   color: var(--ink);
   font-family: ui-serif, Georgia, serif;
-  overflow-y: auto !important;
+  overflow-y: auto;               /* allow scroll on mobile */
   -webkit-overflow-scrolling: touch;
-  min-height: 100%;
-}
-
-/* Scroll fix for phones */
-body::after {
-  content: "";
-  display: block;
-  height: 30vh;
 }
 
 /* Images */
-img {
-  max-width: 100%;
-  display: block;
+img { max-width: 100%; display: block; }
+
+/* Generic screen section */
+.screen {
+  box-sizing: border-box;
+  padding: clamp(16px, 4vw, 32px);
 }
 
-/* Screens */
-.screen {
+/* Centered screen variant (for deck/reveal/final) */
+.centered {
   min-height: 100dvh;
-  padding: clamp(16px, 4vw, 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* Intro uses natural flow so it scrolls on phones */
+#introScreen {
+  display: block;
+  min-height: auto;
+  height: auto;
+  padding-bottom: 80px; /* ensures Begin is reachable above toolbars */
 }
 
 /* Buttons */
@@ -84,16 +74,6 @@ img {
   border: 1px solid rgba(0,0,0,.08);
 }
 
-/* Text */
-.breathe { text-align: center; margin-bottom: 10px; }
-.breathe strong { font-size: clamp(28px, 5vw, 44px); }
-.breathe span {
-  display: block;
-  opacity: .8;
-  font-size: clamp(16px, 3.4vw, 22px);
-  margin-top: 6px;
-}
-
 /* Deck area */
 .stage {
   position: relative;
@@ -102,7 +82,7 @@ img {
   height: clamp(320px, 58svh, 520px);
   margin: 8px auto 24px;
   overflow: hidden;
-  touch-action: pan-x;
+  touch-action: pan-x;  /* deck pans horizontally without blocking page scroll */
   cursor: grab;
 }
 .deck {
@@ -129,29 +109,246 @@ img {
   box-shadow: 0 16px 36px rgba(0,0,0,.28);
   transition: transform .35s ease, box-shadow .25s ease;
 }
-@media (max-width: 420px) {
-  .deck img.card { width: 200px; }
-}
+@media (max-width: 420px) { .deck img.card { width: 200px; } }
 @media (hover:hover) {
   .deck img.card:hover {
     transform: translateY(-6px);
     box-shadow: 0 22px 46px rgba(0,0,0,.34);
   }
 }
-/* --- Fix mobile scroll blocking on intro screen --- */
-#introScreen {
-  min-height: auto;
-  height: auto;
-  overflow-y: visible;
-  padding-bottom: 40vh; /* adds extra space to ensure Begin button is reachable */
+
+/* Typography blocks */
+.breathe { text-align: center; margin: 0 0 10px 0; }
+.breathe strong { font-size: clamp(28px,5vw,44px); }
+.breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
+
+/* Button rows & actions centered */
+.pickRow,
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
+
+/* Final screen layout & spacing */
+.finalWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 20px;
+}
+.finalWrap h1 { margin: 0 0 12px 0; }
+.finalWrap p {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.finalWrap .actions { margin-bottom: 28px; }
+.finalWrap .footer { margin-top: 12px; opacity: .9; font-size: .9em; }
+
+.hidden { display: none !important; }
 </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
+<!-- INTRO (scrolls naturally on mobile) -->
 <section class="screen" id="introScreen">
   <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
     <img src="img/title.jpeg" alt="Reclaim Yourself title" style="width:min(720px,92vw);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.12)">
-    <img src="img/description.jpeg" alt="Reclaim Yourself description" style="width:min(720px,92vw);border-radius:18px;box-shadow:
+    <img src="img/description.jpeg" alt="Reclaim Yourself description" style="width:min(720px,92vw);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.12)">
+    <button class="btn btn-primary" id="beginBtn">Begin</button>
+  </div>
+</section>
+
+<!-- DECK -->
+<section class="screen centered hidden" id="deckScreen">
+  <div class="breathe"><strong>Breathe.</strong><span>Let this message move through you.</span></div>
+  <div class="stage"><div class="deck" id="deck"></div></div>
+  <div class="pickRow">
+    <button class="btn btn-ghost" id="shuffleDeck">Shuffle</button>
+    <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
+  </div>
+</section>
+
+<!-- REVEAL -->
+<section class="screen centered hidden" id="revealScreen">
+  <div class="revealWrap" style="text-align:center;">
+    <img id="revealCard" alt="Selected card" style="margin:auto;">
+    <div class="actions" style="margin-top:20px;">
+      <button class="btn btn-ghost btn-small" id="backToDeck">Back to deck</button>
+      <button class="btn btn-primary btn-small" id="drawAgain">Draw again</button>
+      <button class="btn btn-ghost btn-small" id="goWithin">Go within</button>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="screen centered hidden" id="finalScreen">
+  <div class="finalWrap">
+    <h1>Return to yourself</h1>
+    <p>In the quiet, your wisdom gathers itself and returns to your center. You are held, you are home. Linger here, then step back into your life with courage.</p>
+    <div class="actions"><button class="btn btn-primary btn-small" id="finalBack">Back to deck</button></div>
+    <div class="footer">© LB — Reclaim Yourself Deck</div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const COUNT = 36;
+  const fronts = Array.from({ length: COUNT }, (_, i) =>
+    `img/card_${String(i + 1).padStart(2, "0")}.jpeg`
+  );
+  const backSrc = "img/back.jpeg";
+
+  const intro = document.getElementById("introScreen");
+  const deckScreen = document.getElementById("deckScreen");
+  const revealScreen = document.getElementById("revealScreen");
+  const finalScreen = document.getElementById("finalScreen");
+  const deckEl = document.getElementById("deck");
+  const revealCard = document.getElementById("revealCard");
+
+  const begin = document.getElementById("beginBtn");
+  const pickForMe = document.getElementById("pickForMe");
+  const backToDeck = document.getElementById("backToDeck");
+  const drawAgain = document.getElementById("drawAgain");
+  const goWithin = document.getElementById("goWithin");
+  const finalBack = document.getElementById("finalBack");
+  const shuffleBtn = document.getElementById("shuffleDeck");
+
+  const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
+  const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
+
+  const show = (el) => {
+    [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>
+      s.classList.toggle("hidden", s !== el)
+    );
+    // ensure page can scroll when returning to intro
+    if (el === intro) {
+      document.documentElement.style.overflowY = 'auto';
+      document.body.style.overflowY = 'auto';
+    }
+  };
+
+  let dragging = false, startX = 0, currentOffset = 0, dragVelocity = 0, momentumFrame;
+  let isShuffling = false;
+  const MAX_OFFSET = 1600;
+  let dragDistance = 0;
+
+  function buildDeck() {
+    deckEl.innerHTML = "";
+    const order = shuffle(fronts);
+    order.forEach((src) => {
+      const card = document.createElement("img");
+      card.src = backSrc;
+      card.classList.add("card");
+      card.dataset.front = src;
+      deckEl.appendChild(card);
+    });
+    currentOffset = 0;
+    deckEl.style.transform = `translate(-50%, -50%) translateX(${currentOffset}px)`;
+    enableDeckDrag();
+  }
+
+  function enableDeckDrag() {
+    const stage = document.querySelector(".stage");
+    const deck = deckEl;
+    if (!stage || !deck) return;
+
+    stage.onpointerdown = (e) => {
+      if (isShuffling) return;
+      dragging = true;
+      dragDistance = 0;
+      startX = e.clientX;
+      dragVelocity = 0;
+      cancelAnimationFrame(momentumFrame);
+      stage.setPointerCapture(e.pointerId);
+    };
+
+    stage.onpointermove = (e) => {
+      if (!dragging) return;
+      const dx = (e.clientX - startX) * 1.3;
+      dragDistance = Math.abs(dx);
+      const offset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + dx));
+      dragVelocity = offset - currentOffset;
+      deck.style.transition = "none";
+      deck.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
+    };
+
+    stage.onpointerup = stage.onpointercancel = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      currentOffset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + dragVelocity));
+      stage.releasePointerCapture?.(e.pointerId);
+      applyMomentum();
+
+      if (!isShuffling && dragDistance < 6) {
+        const el = document.elementFromPoint(e.clientX, e.clientY);
+        const cardEl = el && el.closest(".card");
+        if (cardEl && cardEl.dataset.front) {
+          reveal(cardEl.dataset.front);
+        }
+      }
+    };
+
+    function applyMomentum() {
+      let momentum = dragVelocity * 0.9;
+      const friction = 0.92;
+      const step = () => {
+        momentum *= friction;
+        currentOffset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + momentum));
+        deck.style.transform = `translate(-50%, -50%) translateX(${currentOffset}px)`;
+        if (Math.abs(momentum) > 0.3) momentumFrame = requestAnimationFrame(step);
+      };
+      momentumFrame = requestAnimationFrame(step);
+    }
+  }
+
+  shuffleBtn.addEventListener("click", () => {
+    const cards = Array.from(deckEl.querySelectorAll(".card"));
+    if (!cards.length) return;
+    isShuffling = true;
+
+    cards.forEach((c, i) => {
+      c.style.transition = "transform 0.25s ease-out";
+      const x = Math.random() * 240 - 120;
+      const y = Math.random() * 80 - 40;
+      const r = Math.random() * 25 - 12;
+      c.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+      c.style.zIndex = i;
+    });
+
+    setTimeout(() => {
+      cards.forEach((c) => {
+        c.style.transition = "transform 0.5s ease-in-out";
+        c.style.transform = "translate(0,0) rotate(0)";
+      });
+      setTimeout(() => (isShuffling = false), 800);
+    }, 1000);
+  });
+
+  const reveal = (src) => { revealCard.src = src; show(revealScreen); };
+  const backToDeckAction = () => show(deckScreen);
+  const drawAgainAction = () => { buildDeck(); show(deckScreen); };
+  const pickForMeAction = () => { const r = Math.floor(Math.random() * fronts.length); reveal(fronts[r]); };
+
+  // Start flow
+  begin.addEventListener("click", () => { buildDeck(); show(deckScreen); });
+  pickForMe.addEventListener("click", pickForMeAction);
+  backToDeck.addEventListener("click", backToDeckAction);
+  drawAgain.addEventListener("click", drawAgainAction);
+  goWithin.addEventListener("click", () => show(finalScreen));
+  finalBack.addEventListener("click", backToDeckAction);
+
+  // Preload assets
+  preload([backSrc, ...fronts, "img/title.jpeg", "img/description.jpeg"]);
+
+  // Always start at intro
+  show(intro);
+})();
+</script>
+</body>
+</html>

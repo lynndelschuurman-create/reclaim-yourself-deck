@@ -183,7 +183,6 @@ img { max-width: 100%; display: block; }
   <div class="breathe"><strong>Breathe.</strong><span>Let this message move through you.</span></div>
   <div class="stage"><div class="deck" id="deck"></div></div>
  <div class="pickRow">
-  <button class="btn btn-ghost" id="shuffleDeck">Shuffle</button>
   <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
   <button class="btn btn-ghost" id="swipeHint">Swipe</button>
 </div>
@@ -195,7 +194,6 @@ img { max-width: 100%; display: block; }
   <div class="revealWrap" style="text-align:center;">
     <img id="revealCard" alt="Selected card" style="margin:auto;">
     <div class="actions" style="margin-top:20px;">
-      <button class="btn btn-ghost btn-small" id="backToDeck">Back to deck</button>
       <button class="btn btn-primary btn-small" id="drawAgain">Draw again</button>
       <button class="btn btn-ghost btn-small" id="goWithin">Go within</button>
     </div>
@@ -229,11 +227,9 @@ img { max-width: 100%; display: block; }
 
   const begin = document.getElementById("beginBtn");
   const pickForMe = document.getElementById("pickForMe");
-  const backToDeck = document.getElementById("backToDeck");
   const drawAgain = document.getElementById("drawAgain");
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
-  const shuffleBtn = document.getElementById("shuffleDeck");
 
   const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
   const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
@@ -242,7 +238,6 @@ img { max-width: 100%; display: block; }
     [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>
       s.classList.toggle("hidden", s !== el)
     );
-    // ensure page can scroll when returning to intro
     if (el === intro) {
       document.documentElement.style.overflowY = 'auto';
       document.body.style.overflowY = 'auto';
@@ -250,7 +245,6 @@ img { max-width: 100%; display: block; }
   };
 
   let dragging = false, startX = 0, currentOffset = 0, dragVelocity = 0, momentumFrame;
-  let isShuffling = false;
   const MAX_OFFSET = 1600;
   let dragDistance = 0;
 
@@ -275,7 +269,6 @@ img { max-width: 100%; display: block; }
     if (!stage || !deck) return;
 
     stage.onpointerdown = (e) => {
-      if (isShuffling) return;
       dragging = true;
       dragDistance = 0;
       startX = e.clientX;
@@ -301,7 +294,7 @@ img { max-width: 100%; display: block; }
       stage.releasePointerCapture?.(e.pointerId);
       applyMomentum();
 
-      if (!isShuffling && dragDistance < 6) {
+      if (dragDistance < 6) {
         const el = document.elementFromPoint(e.clientX, e.clientY);
         const cardEl = el && el.closest(".card");
         if (cardEl && cardEl.dataset.front) {
@@ -323,46 +316,19 @@ img { max-width: 100%; display: block; }
     }
   }
 
-  shuffleBtn.addEventListener("click", () => {
-    const cards = Array.from(deckEl.querySelectorAll(".card"));
-    if (!cards.length) return;
-    isShuffling = true;
-
-    cards.forEach((c, i) => {
-      c.style.transition = "transform 0.25s ease-out";
-      const x = Math.random() * 240 - 120;
-      const y = Math.random() * 80 - 40;
-      const r = Math.random() * 25 - 12;
-      c.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
-      c.style.zIndex = i;
-    });
-
-    setTimeout(() => {
-      cards.forEach((c) => {
-        c.style.transition = "transform 0.5s ease-in-out";
-        c.style.transform = "translate(0,0) rotate(0)";
-      });
-      setTimeout(() => (isShuffling = false), 800);
-    }, 1000);
-  });
-
   const reveal = (src) => { revealCard.src = src; show(revealScreen); };
-  const backToDeckAction = () => show(deckScreen);
   const drawAgainAction = () => { buildDeck(); show(deckScreen); };
   const pickForMeAction = () => { const r = Math.floor(Math.random() * fronts.length); reveal(fronts[r]); };
+  const backToDeckAction = () => show(deckScreen); // reused for finalBack
 
-  // Start flow
+  // Navigation
   begin.addEventListener("click", () => { buildDeck(); show(deckScreen); });
   pickForMe.addEventListener("click", pickForMeAction);
-  backToDeck.addEventListener("click", backToDeckAction);
   drawAgain.addEventListener("click", drawAgainAction);
   goWithin.addEventListener("click", () => show(finalScreen));
   finalBack.addEventListener("click", backToDeckAction);
 
-  // Preload assets
   preload([backSrc, ...fronts, "img/title.jpeg", "img/description.jpeg"]);
-
-  // Always start at intro
   show(intro);
 })();
 </script>

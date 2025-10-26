@@ -172,9 +172,12 @@ img { max-width: 100%; display: block; }
 <!-- INTRO (scrolls naturally on mobile) -->
 <section class="screen" id="introScreen">
   <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-    <img src="img/title.jpeg" alt="Reclaim Yourself title" style="width:min(720px,92vw);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.12)">
-    <img src="img/description.jpeg" alt="Reclaim Yourself description" style="width:min(720px,92vw);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.12)">
-    <button class="btn btn-primary" id="beginBtn">Begin</button>
+   <img src="img/title.jpeg" alt="Reclaim Yourself title">
+<img src="img/description.jpeg" alt="Reclaim Yourself description">
+<img src="img/instruction_01.jpeg" alt="Reclaim Yourself instruction 1">
+<img src="img/instruction_02.jpeg" alt="Reclaim Yourself instruction 2">
+<button class="btn btn-primary" id="beginBtn">Begin</button>
+
   </div>
 </section>
 
@@ -328,7 +331,15 @@ img { max-width: 100%; display: block; }
   goWithin.addEventListener("click", () => show(finalScreen));
   finalBack.addEventListener("click", backToDeckAction);
 
-  preload([backSrc, ...fronts, "img/title.jpeg", "img/description.jpeg"]);
+  preload([
+  backSrc,
+  ...fronts,
+  "img/title.jpeg",
+  "img/description.jpeg",
+  "img/instruction_01.jpeg",
+  "img/instruction_02.jpeg"
+]);
+
   show(intro);
 })();
 </script>

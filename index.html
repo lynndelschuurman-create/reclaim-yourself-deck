@@ -29,10 +29,7 @@ html, body {
 img { max-width: 100%; display: block; }
 
 /* Generic screen section */
-.screen {
-  box-sizing: border-box;
-  padding: clamp(16px, 4vw, 32px);
-}
+.screen { box-sizing: border-box; padding: clamp(16px, 4vw, 32px); }
 
 /* Centered screen variant (for deck/reveal/final) */
 .centered {
@@ -61,11 +58,7 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.btn-primary {
-  background: var(--btn);
-  color: var(--btnText);
-  box-shadow: 0 6px 20px rgba(0,0,0,.18);
-}
+.btn-primary { background: var(--btn); color: var(--btnText); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
 .btn-primary:active { transform: translateY(1px); }
 .btn-ghost {
   background: rgba(255,255,255,.45);
@@ -74,41 +67,38 @@ img { max-width: 100%; display: block; }
   border: 1px solid rgba(0,0,0,.08);
 }
 
-/* Deck area */
+/* Deck area (natural horizontal swipe) */
 .stage {
   position: relative;
   width: 100%;
   max-width: 980px;
   height: clamp(320px, 58svh, 520px);
   margin: 8px auto 24px;
-  overflow: hidden;
-  touch-action: pan-x;  /* deck pans horizontally without blocking page scroll */
-  cursor: grab;
+  overflow-x: auto;               /* ✅ allow horizontal scroll */
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;  /* ✅ snap scrolling */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 .deck {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
-  gap: 24px;
+  gap: 16px;
   align-items: center;
-  will-change: transform;
-  width: max-content;
-}
-.deck, .deck img.card {
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-tap-highlight-color: transparent;
+  padding: 0 24px;
 }
 .deck img.card {
-  width: 160px;
+  width: 180px;
   aspect-ratio: 2/3;
   object-fit: cover;
   border-radius: 20px;
   box-shadow: 0 16px 36px rgba(0,0,0,.28);
-  transition: transform .35s ease, box-shadow .25s ease;
+  scroll-snap-align: center;      /* ✅ makes cards snap in place */
+  cursor: pointer;
 }
+
 @media (max-width: 420px) { .deck img.card { width: 200px; } }
 @media (hover:hover) {
   .deck img.card:hover {
@@ -123,8 +113,7 @@ img { max-width: 100%; display: block; }
 .breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
 
 /* Button rows & actions centered */
-.pickRow,
-.actions {
+.pickRow, .actions {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,20 +130,17 @@ img { max-width: 100%; display: block; }
   padding: 0 20px;
 }
 .finalWrap h1 { margin: 0 0 12px 0; }
-.finalWrap p {
-  max-width: 620px;
-  margin: 0 auto 32px;
-  line-height: 1.6;
-}
+.finalWrap p { max-width: 620px; margin: 0 auto 32px; line-height: 1.6; }
 .finalWrap .actions { margin-bottom: 28px; }
 .finalWrap .footer { margin-top: 12px; opacity: .9; font-size: .9em; }
 
 .hidden { display: none !important; }
-/* Swipe button styling */
+
+/* Swipe hint styling */
 #swipeHint {
   opacity: 0.8;
   font-style: italic;
-  pointer-events: none; /* prevents it from triggering clicks */
+  pointer-events: none;
   animation: gentlePulse 3s ease-in-out infinite;
 }
 
@@ -163,21 +149,19 @@ img { max-width: 100%; display: block; }
   0%, 100% { opacity: 0.5; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.05); }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- INTRO (scrolls naturally on mobile) -->
+<!-- INTRO -->
 <section class="screen" id="introScreen">
   <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
-   <img src="img/title.jpeg" alt="Reclaim Yourself title">
-<img src="img/description.jpeg" alt="Reclaim Yourself description">
-<img src="img/instruction_01.jpeg" alt="Reclaim Yourself instruction 1">
-<img src="img/instruction_02.jpeg" alt="Reclaim Yourself instruction 2">
-<button class="btn btn-primary" id="beginBtn">Begin</button>
-
+    <img src="img/title.jpeg" alt="Reclaim Yourself title">
+    <img src="img/description.jpeg" alt="Reclaim Yourself description">
+    <img src="img/instruction_01.jpeg" alt="Reclaim Yourself instruction 1">
+    <img src="img/instruction_02.jpeg" alt="Reclaim Yourself instruction 2">
+    <button class="btn btn-primary" id="beginBtn">Begin</button>
   </div>
 </section>
 
@@ -185,11 +169,10 @@ img { max-width: 100%; display: block; }
 <section class="screen centered hidden" id="deckScreen">
   <div class="breathe"><strong>Breathe.</strong><span>Let this message move through you.</span></div>
   <div class="stage"><div class="deck" id="deck"></div></div>
- <div class="pickRow">
-  <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
-  <button class="btn btn-ghost" id="swipeHint">Swipe</button>
-</div>
-
+  <div class="pickRow">
+    <button class="btn btn-ghost" id="pickForMe">Pick for Me</button>
+    <button class="btn btn-ghost" id="swipeHint">Swipe</button>
+  </div>
 </section>
 
 <!-- REVEAL -->
@@ -208,11 +191,10 @@ img { max-width: 100%; display: block; }
   <div class="finalWrap">
     <h1>Return to yourself</h1>
     <p>In the quiet, your wisdom gathers itself and returns to your center. You are held, you are home. Linger here, then step back into your life with courage.</p>
-   <div class="actions">
-  <button class="btn btn-primary btn-small" id="finalBack">Back to deck</button>
-  <button class="btn btn-ghost btn-small" id="returnToIntro">Return to instructions</button>
-</div>
-
+    <div class="actions">
+      <button class="btn btn-primary btn-small" id="finalBack">Back to deck</button>
+      <button class="btn btn-ghost btn-small" id="returnToIntro">Return to instructions</button>
+    </div>
     <div class="footer">© LB — Reclaim Yourself Deck</div>
   </div>
 </section>
@@ -225,6 +207,7 @@ img { max-width: 100%; display: block; }
   );
   const backSrc = "img/back.jpeg";
 
+  // Screens / elements
   const intro = document.getElementById("introScreen");
   const deckScreen = document.getElementById("deckScreen");
   const revealScreen = document.getElementById("revealScreen");
@@ -232,11 +215,13 @@ img { max-width: 100%; display: block; }
   const deckEl = document.getElementById("deck");
   const revealCard = document.getElementById("revealCard");
 
+  // Buttons
   const begin = document.getElementById("beginBtn");
   const pickForMe = document.getElementById("pickForMe");
   const drawAgain = document.getElementById("drawAgain");
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
+  const returnToIntro = document.getElementById("returnToIntro");
 
   const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
   const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
@@ -245,106 +230,57 @@ img { max-width: 100%; display: block; }
     [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>
       s.classList.toggle("hidden", s !== el)
     );
-    if (el === intro) {
-      document.documentElement.style.overflowY = 'auto';
-      document.body.style.overflowY = 'auto';
-    }
   };
 
-  let dragging = false, startX = 0, currentOffset = 0, dragVelocity = 0, momentumFrame;
-  const MAX_OFFSET = 1600;
-  let dragDistance = 0;
-
+  /* ---------- BUILD THE DECK (for swipe scrolling) ---------- */
   function buildDeck() {
     deckEl.innerHTML = "";
-    const order = shuffle(fronts);
+    const order = shuffle(shuffle(fronts));
     order.forEach((src) => {
       const card = document.createElement("img");
       card.src = backSrc;
       card.classList.add("card");
       card.dataset.front = src;
+      card.addEventListener("click", () => reveal(src));
       deckEl.appendChild(card);
     });
-    currentOffset = 0;
-    deckEl.style.transform = `translate(-50%, -50%) translateX(${currentOffset}px)`;
-    enableDeckDrag();
   }
 
-  function enableDeckDrag() {
-    const stage = document.querySelector(".stage");
-    const deck = deckEl;
-    if (!stage || !deck) return;
+  /* ---------- REVEAL ---------- */
+  const reveal = (src) => {
+    revealCard.src = src;
+    show(revealScreen);
+  };
 
-    stage.onpointerdown = (e) => {
-      dragging = true;
-      dragDistance = 0;
-      startX = e.clientX;
-      dragVelocity = 0;
-      cancelAnimationFrame(momentumFrame);
-      stage.setPointerCapture(e.pointerId);
-    };
+  /* ---------- BUTTON ACTIONS ---------- */
+  begin.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+  });
 
-    stage.onpointermove = (e) => {
-      if (!dragging) return;
-      const dx = (e.clientX - startX) * 1.3;
-      dragDistance = Math.abs(dx);
-      const offset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + dx));
-      dragVelocity = offset - currentOffset;
-      deck.style.transition = "none";
-      deck.style.transform = `translate(-50%, -50%) translateX(${offset}px)`;
-    };
+  pickForMe.addEventListener("click", () => {
+    const r = Math.floor(Math.random() * fronts.length);
+    reveal(fronts[r]);
+  });
 
-    stage.onpointerup = stage.onpointercancel = (e) => {
-      if (!dragging) return;
-      dragging = false;
-      currentOffset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + dragVelocity));
-      stage.releasePointerCapture?.(e.pointerId);
-      applyMomentum();
+  drawAgain.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+  });
 
-      if (dragDistance < 6) {
-        const el = document.elementFromPoint(e.clientX, e.clientY);
-        const cardEl = el && el.closest(".card");
-        if (cardEl && cardEl.dataset.front) {
-          reveal(cardEl.dataset.front);
-        }
-      }
-    };
-
-    function applyMomentum() {
-      let momentum = dragVelocity * 0.9;
-      const friction = 0.92;
-      const step = () => {
-        momentum *= friction;
-        currentOffset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, currentOffset + momentum));
-        deck.style.transform = `translate(-50%, -50%) translateX(${currentOffset}px)`;
-        if (Math.abs(momentum) > 0.3) momentumFrame = requestAnimationFrame(step);
-      };
-      momentumFrame = requestAnimationFrame(step);
-    }
-  }
-
-  const reveal = (src) => { revealCard.src = src; show(revealScreen); };
-  const drawAgainAction = () => { buildDeck(); show(deckScreen); };
-  const pickForMeAction = () => { const r = Math.floor(Math.random() * fronts.length); reveal(fronts[r]); };
-  const backToDeckAction = () => show(deckScreen); // reused for finalBack
-
-  // Navigation
-  begin.addEventListener("click", () => { buildDeck(); show(deckScreen); });
-  pickForMe.addEventListener("click", pickForMeAction);
-  drawAgain.addEventListener("click", drawAgainAction);
   goWithin.addEventListener("click", () => show(finalScreen));
-  finalBack.addEventListener("click", backToDeckAction);
-const returnToIntro = document.getElementById("returnToIntro");
-returnToIntro.addEventListener("click", () => show(intro));
+  finalBack.addEventListener("click", () => show(deckScreen));
+  returnToIntro.addEventListener("click", () => show(intro));
 
+  /* ---------- PRELOAD ---------- */
   preload([
-  backSrc,
-  ...fronts,
-  "img/title.jpeg",
-  "img/description.jpeg",
-  "img/instruction_01.jpeg",
-  "img/instruction_02.jpeg"
-]);
+    backSrc,
+    ...fronts,
+    "img/title.jpeg",
+    "img/description.jpeg",
+    "img/instruction_01.jpeg",
+    "img/instruction_02.jpeg"
+  ]);
 
   show(intro);
 })();

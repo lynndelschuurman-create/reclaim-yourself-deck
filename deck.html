@@ -119,13 +119,23 @@ img { max-width: 100%; display: block; }
 .breathe strong { font-size: clamp(28px,5vw,44px); }
 .breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
 
-/* Center button rows */
+/* Button rows & actions centered (stacked + equal size) */
 .pickRow, .actions {
   display: flex;
-  justify-content: center;
+  flex-direction: column;  /* stack buttons vertically */
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
+
+.actions .btn,
+.pickRow .btn {
+  width: 220px;            /* consistent width for all buttons */
+  text-align: center;
+  border-radius: 30px;     /* soft rounded shape */
+  padding: 12px 0;         /* same height for every button */
+  font-size: 16px;
+}
+
 
 /* Final screen layout */
 .finalWrap {

@@ -119,23 +119,24 @@ img { max-width: 100%; display: block; }
 .breathe strong { font-size: clamp(28px,5vw,44px); }
 .breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
 
-/* Button rows & actions centered (stacked + equal size) */
+/* Unified button style for final screen */
 .pickRow, .actions {
   display: flex;
-  flex-direction: column;  /* stack buttons vertically */
+  flex-direction: column;     /* stack vertically */
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .actions .btn,
 .pickRow .btn {
-  width: 220px;            /* consistent width for all buttons */
-  text-align: center;
-  border-radius: 30px;     /* soft rounded shape */
-  padding: 12px 0;         /* same height for every button */
+  width: 240px;               /* consistent width */
+  border-radius: 32px;        /* softly rounded rectangle */
+  padding: 12px 0;
   font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
-
 
 /* Final screen layout */
 .finalWrap {

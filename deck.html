@@ -53,13 +53,20 @@ img { max-width: 100%; display: block; }
   appearance: none;
   border: 0;
   border-radius: 999px;
-  padding: 14px 22px;
-  font-weight: 700;
+  padding: 10px 18px;       /* smaller and consistent */
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.btn-primary { background: var(--btn); color: var(--btnText); box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+
+.btn-primary {
+  background: var(--btn);
+  color: var(--btnText);
+  box-shadow: 0 4px 12px rgba(0,0,0,.18);
+}
 .btn-primary:active { transform: translateY(1px); }
+
 .btn-ghost {
   background: rgba(255,255,255,.45);
   color: var(--ink);
@@ -67,13 +74,12 @@ img { max-width: 100%; display: block; }
   border: 1px solid rgba(0,0,0,.08);
 }
 
-/* Small button size */
 .btn-small {
-  padding: 10px 18px;
+  padding: 10px 18px;   /* keep this matching */
   font-size: 15px;
 }
 
-/* Deck area (natural horizontal swipe) */
+ /* Deck area (natural horizontal swipe) */
 .stage {
   position: relative;
   width: 100%;

@@ -65,7 +65,9 @@ img { max-width: 100%; display: block; }
   color: var(--ink);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(0,0,0,.08);
-  /* Small button size */
+}
+
+/* Small button size */
 .btn-small {
   padding: 10px 18px;
   font-size: 15px;
@@ -78,9 +80,9 @@ img { max-width: 100%; display: block; }
   max-width: 980px;
   height: clamp(320px, 58svh, 520px);
   margin: 8px auto 24px;
-  overflow-x: auto;               /* ✅ allow horizontal scroll */
+  overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;  /* ✅ snap scrolling */
+  scroll-snap-type: x mandatory;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -204,10 +206,7 @@ img { max-width: 100%; display: block; }
       <button class="btn btn-ghost btn-small" id="returnToIntro">Return to instructions</button>
       <a href="index.html" class="btn btn-primary btn-small">🏡 Return Home</a>
     </div>
-    .btn-small {
-  padding: 10px 18px;
-  font-size: 15px;
-}
+  
 
     <div class="footer">© Lynndel — Reclaim Yourself Deck</div>
   </div>

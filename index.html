@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Heart of Receiving — Home</title>
+<link rel="icon" href="favicon.png" />
+<style>
+:root {
+  --bg:#e9bfb6;
+  --ink:#5a3e34;
+  --btn:#f1d48b;
+  --btnText:#3e2b25;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-serif, Georgia, serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+main {
+  text-align: center;
+  padding: clamp(24px, 6vw, 60px);
+  max-width: 700px;
+}
+
+h1 {
+  font-size: clamp(32px, 6vw, 54px);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: clamp(18px, 3.5vw, 22px);
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+.btn {
+  display: inline-block;
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 28px;
+  font-weight: 700;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.btn-primary {
+  background: var(--btn);
+  color: var(--btnText);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+</style>
+</head>
+
+<body>
+<main>
+  <h1>Heart of Receiving</h1>
+  <h2>A sacred space for women remembering how to soften into enoughness</h2>
+
+  <div>
+    <a href="book.html" class="btn btn-primary">📖 Explore the Book</a>
+    <a href="deck.html" class="btn btn-primary">🃏 Draw a Card</a>
+    <a href="about.html" class="btn btn-primary">💗 Enter the Heart of Receiving</a>
+  </div>
+
+  <footer>© Lynndel — Heart of Receiving</footer>
+</main>
+</body>
+</html>

@@ -21,7 +21,7 @@ html, body {
   background: var(--bg);
   color: var(--ink);
   font-family: ui-serif, Georgia, serif;
-  overflow-y: auto;               /* allow scroll on mobile */
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -31,7 +31,7 @@ img { max-width: 100%; display: block; }
 /* Generic screen section */
 .screen { box-sizing: border-box; padding: clamp(16px, 4vw, 32px); }
 
-/* Centered screen variant (for deck/reveal/final) */
+/* Centered screens (deck/reveal/final) */
 .centered {
   min-height: 100dvh;
   display: flex;
@@ -40,12 +40,12 @@ img { max-width: 100%; display: block; }
   justify-content: center;
 }
 
-/* Intro uses natural flow so it scrolls on phones */
+/* Intro (scrolls on mobile) */
 #introScreen {
   display: block;
   min-height: auto;
   height: auto;
-  padding-bottom: 80px; /* ensures Begin is reachable above toolbars */
+  padding-bottom: 80px;
 }
 
 /* Buttons */
@@ -53,33 +53,30 @@ img { max-width: 100%; display: block; }
   appearance: none;
   border: 0;
   border-radius: 999px;
-  padding: 10px 18px;       /* smaller and consistent */
+  padding: 10px 18px;      /* smaller consistent size */
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-
 .btn-primary {
   background: var(--btn);
   color: var(--btnText);
   box-shadow: 0 4px 12px rgba(0,0,0,.18);
 }
 .btn-primary:active { transform: translateY(1px); }
-
 .btn-ghost {
   background: rgba(255,255,255,.45);
   color: var(--ink);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(0,0,0,.08);
 }
-
 .btn-small {
-  padding: 10px 18px;   /* keep this matching */
+  padding: 10px 18px;
   font-size: 15px;
 }
 
- /* Deck area (natural horizontal swipe) */
+/* Deck area (horizontal scroll) */
 .stage {
   position: relative;
   width: 100%;
@@ -107,7 +104,7 @@ img { max-width: 100%; display: block; }
   object-fit: cover;
   border-radius: 20px;
   box-shadow: 0 16px 36px rgba(0,0,0,.28);
-  scroll-snap-align: center;      /* ✅ makes cards snap in place */
+  scroll-snap-align: center;
   cursor: pointer;
 }
 
@@ -119,12 +116,12 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* Typography blocks */
+/* Typography */
 .breathe { text-align: center; margin: 0 0 10px 0; }
 .breathe strong { font-size: clamp(28px,5vw,44px); }
 .breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
 
-/* Button rows & actions centered */
+/* Center button rows */
 .pickRow, .actions {
   display: flex;
   justify-content: center;
@@ -132,7 +129,7 @@ img { max-width: 100%; display: block; }
   gap: 10px;
 }
 
-/* Final screen layout & spacing */
+/* Final screen layout */
 .finalWrap {
   display: flex;
   flex-direction: column;
@@ -148,7 +145,7 @@ img { max-width: 100%; display: block; }
 
 .hidden { display: none !important; }
 
-/* Swipe hint styling */
+/* Swipe hint */
 #swipeHint {
   opacity: 0.8;
   font-style: italic;

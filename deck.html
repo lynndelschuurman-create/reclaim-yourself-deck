@@ -53,27 +53,25 @@ img { max-width: 100%; display: block; }
   appearance: none;
   border: 0;
   border-radius: 999px;
-  padding: 10px 18px;      /* smaller consistent size */
-  font-size: 15px;
+  padding: 12px 22px;       /* balanced size */
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease;
 }
+
 .btn-primary {
   background: var(--btn);
   color: var(--btnText);
   box-shadow: 0 4px 12px rgba(0,0,0,.18);
 }
 .btn-primary:active { transform: translateY(1px); }
+
 .btn-ghost {
   background: rgba(255,255,255,.45);
   color: var(--ink);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(0,0,0,.08);
-}
-.btn-small {
-  padding: 10px 18px;
-  font-size: 15px;
 }
 
 /* Deck area (horizontal scroll) */
@@ -205,13 +203,12 @@ img { max-width: 100%; display: block; }
     </p>
 
     <div class="actions">
-      <button class="btn btn-primary btn-small" id="finalBack">Back to deck</button>
-      <button class="btn btn-ghost btn-small" id="returnToIntro">Return to instructions</button>
-      <a href="index.html" class="btn btn-primary btn-small">🏡 Return Home</a>
+      <button class="btn btn-primary" id="finalBack">Back to deck</button>
+      <button class="btn btn-ghost" id="returnToIntro">Return to instructions</button>
+      <a href="index.html" class="btn btn-primary">Return Home</a>
     </div>
-  
 
-    <div class="footer">© Lynndel — Reclaim Yourself Deck</div>
+    <div class="footer">© Lynndel - Reclaim Yourself Deck</div>
   </div>
 </section>
 

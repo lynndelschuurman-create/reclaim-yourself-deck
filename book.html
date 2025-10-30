@@ -40,6 +40,7 @@ main {
   border-radius: 16px;
   box-shadow: 0 10px 28px rgba(0,0,0,0.25);
   margin-bottom: 24px;
+  animation: fadeInSoft 1.8s ease-in forwards;
 }
 
 /* Headings and text */
@@ -47,12 +48,14 @@ h1 {
   font-size: clamp(32px, 6vw, 52px);
   margin-bottom: 10px;
   letter-spacing: 1px;
+  animation: fadeInSoft 2s ease-in forwards;
 }
 p {
   font-size: 1.05em;
   line-height: 1.6;
   opacity: 0.85;
   margin-bottom: 30px;
+  animation: fadeInSoft 2.2s ease-in forwards;
 }
 
 /* Buttons */
@@ -71,27 +74,17 @@ p {
   color: var(--btnText);
   margin: 10px auto;
   display: block;
+  animation: fadeInSoft 2.4s ease-in forwards;
 }
 .btn:hover {
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 .btn:active { transform: translateY(1px); }
- /* Gentle fade-in for the book cover and text */
-.book-cover, h1, p, .btn {
-  animation: fadeInSoft 1.6s ease-in forwards;
-}
 
 @keyframes fadeInSoft {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
- 
 </style>
 </head>
 
@@ -102,12 +95,14 @@ p {
 
   <h1>Reclaiming My Place in My Own Life</h1>
   <p>
-    A poetry collection born from the ache of becoming, a journey of remembering, healing, and returning home to myself.  
-    Each piece is a reclamation of my voice, worth, softness and belonging. Written in the moments I forgot my own power and in the remembering that followed.
+    A poetic journey of remembering, healing, and returning home to the self.  
+    These words are a reclamation — of voice, worth, and the quiet power within.
   </p>
 
+  <!-- 🛒 Replace the link below with your actual sales link (Amazon, Blurb, etc.) -->
+  <button class="btn" onclick="window.open('https://your-book-link-here.com', '_blank')">Buy the Book</button>
+
   <button class="btn" onclick="location.href='index.html'">Return Home</button>
-  <button class="btn" onclick="location.href='deck.html'">Draw a Card</button>
 </main>
 </body>
 </html>

@@ -168,13 +168,13 @@ img { max-width: 100%; display: block; }
   50% { opacity: 1; transform: scale(1.05); }
 }
 /* --- Fix layout: make ONLY the 'Draw Again' and 'Go Within' buttons side by side --- */
-#revealScreen .revealWrap .actions {
+#revealScreen .actions {
   display: flex !important;
   justify-content: center;
   align-items: center;
-  flex-direction: row !important;   /* forces side-by-side */
+  flex-direction: row !important; /* side-by-side */
   gap: 14px;
-  flex-wrap: wrap;                  /* allows stacking only if very narrow */
+  flex-wrap: wrap; /* stacks only if screen is very narrow */
   margin-top: 24px;
 }
 

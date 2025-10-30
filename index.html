@@ -72,11 +72,28 @@ h2 {
   transform: translateY(1px);
 }
 
-/* Footer */
+/* Remove underline from button links */
+a.btn {
+  text-decoration: none;
+}
+
+/* Footer (matches deck style) */
 footer {
-  margin-top: 40px;
-  font-size: 14px;
-  opacity: 0.8;
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0.7;
+  font-size: 0.8em;
+  color: var(--ink);
+  animation: fadeInFooter 1.8s ease-in forwards;
+}
+
+/* Gentle fade-in animation */
+@keyframes fadeInFooter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 0.7; transform: translateY(0); }
 }
 </style>
 </head>
@@ -86,9 +103,9 @@ footer {
   <h1>Heart of Receiving</h1>
   <h2>A sacred space for women remembering how to soften into enoughness</h2>
 
- <button class="btn btn-primary" onclick="location.href='book.html'">Explore the Book</button>
-<button class="btn btn-primary" onclick="location.href='deck.html'">Draw a Card</button>
-<button class="btn btn-primary" onclick="location.href='about.html'">Enter the Heart of Receiving</button>
+  <button class="btn btn-primary" onclick="location.href='book.html'">Explore the Book</button>
+  <button class="btn btn-primary" onclick="location.href='deck.html'">Draw a Card</button>
+  <button class="btn btn-primary" onclick="location.href='about.html'">Enter the Heart of Receiving</button>
 
   <footer>© Lynndel - Heart of Receiving</footer>
 </main>

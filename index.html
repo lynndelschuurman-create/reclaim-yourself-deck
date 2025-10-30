@@ -95,26 +95,67 @@ footer {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 0.7; transform: translateY(0); }
 }
+  /* Banner styling */
+.banner img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(90, 62, 52, 0.15);
+}
+
+/* Gentle space below banner */
+main {
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeInSoft 2s ease forwards;
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInSoft {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
-<main>
-  <h1>Heart of Receiving</h1>
-  <h2>A sacred space for women remembering how to soften into enoughness</h2>
+  <!-- 🌿 New banner section -->
+  <header class="banner">
+    <img src="banner.png" alt="Heart of Receiving banner">
+  </header>
 
-  <button class="btn btn-primary" onclick="location.href='book.html'">Explore the Book</button>
-  <button class="btn btn-primary" onclick="location.href='deck.html'">Draw a Card</button>
-  <button class="btn btn-primary" onclick="location.href='about.html'">Enter the Heart of Receiving</button>
-<p style="margin-top:30px; font-size:0.95em; opacity:0.85;">
-  Come sit with me in the <strong>Heart of Receiving</strong> on  
-  <a href="https://www.facebook.com/heartofreceiving" target="_blank" style="color:var(--ink); text-decoration:underline; font-weight:500;">
-    Facebook
-  </a> — a space to rest, reconnect, and be gently held.
+  <main>
+    <h1>Heart of Receiving</h1>
+    <h2>A sacred space for women remembering how to soften into enoughness</h2>
+
+    <button class="btn btn-primary" onclick="location.href='book.html'">Explore the Book</button>
+    <button class="btn btn-primary" onclick="location.href='deck.html'">Draw a Card</button>
+    <p style="
+  text-align:center;
+  font-style:italic;
+  color:#5a3e34;
+  margin-top:16px;
+  opacity:0.75;
+  font-size:0.9em;
+  line-height:1.5;
+">
+  These cards are shared as a sacred gift alongside <em>Reclaiming My Place in My Own Life.</em><br>
+  Please enjoy them with reverence, and stay tuned for deeper guided journeys through<br>
+  <strong>Heart of Abundance.</strong>
 </p>
+    <button class="btn btn-primary" onclick="location.href='about.html'">Enter the Heart of Receiving</button>
 
+    <!-- 💫 Keep your Facebook section here -->
+    <p style="margin-top:30px; font-size:0.95em; opacity:0.85;">
+      Come sit with me in the <strong>Heart of Receiving</strong> on  
+      <a href="https://www.facebook.com/heartofreceiving" target="_blank" style="color:var(--ink); text-decoration:underline; font-weight:500;">
+        Facebook
+      </a> — a space to rest, reconnect, and be gently held.
+    </p>
 
-  <footer>© Lynndel - Heart of Receiving</footer>
-</main>
+    <footer>© Lynndel — Heart of Receiving</footer>
+  </main>
 </body>
 </html>
+

@@ -292,14 +292,12 @@ You are already within it
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
   const returnToIntro = document.getElementById("returnToIntro");
+  const guideBtn = document.getElementById("guidebook-link"); // 👈 add this
+
+  const GUIDEBOOK_URL = 'reclaim-yourself-guidebook.pdf';
 
   const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
   const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
-const GUIDEBOOK_URL = 'reclaim-yourself-guidebook.pdf';
-
-guideBtn.onclick = () => {
-  window.open(GUIDEBOOK_URL, '_blank');
-};
 
   const show = (el) => {
     [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>
@@ -325,6 +323,14 @@ guideBtn.onclick = () => {
   const reveal = (src) => {
     revealCard.src = src;
     show(revealScreen);
+
+    // 👇 show & wire the guidebook button when a card is revealed
+    if (guideBtn) {
+      guideBtn.style.display = "inline-block";
+      guideBtn.onclick = () => {
+        window.open(GUIDEBOOK_URL, "_blank");
+      };
+    }
   };
 
   /* ---------- BUTTON ACTIONS ---------- */
@@ -341,6 +347,9 @@ guideBtn.onclick = () => {
   drawAgain.addEventListener("click", () => {
     buildDeck();
     show(deckScreen);
+
+    // optionally hide the guidebook button again until a new card is revealed
+    if (guideBtn) guideBtn.style.display = "none";
   });
 
   goWithin.addEventListener("click", () => show(finalScreen));

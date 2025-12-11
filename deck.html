@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=yes" />
 <title>Reclaim Yourself — Interactive Deck</title>
 <link rel="icon" href="favicon.png" />
+
 <style>
 :root {
   --bg:#e9bfb6;
@@ -28,10 +29,10 @@ html, body {
 /* Images */
 img { max-width: 100%; display: block; }
 
-/* Generic screen section */
+/* Generic screens */
 .screen { box-sizing: border-box; padding: clamp(16px, 4vw, 32px); }
 
-/* Centered screens (deck/reveal/final) */
+/* Centered screens */
 .centered {
   min-height: 100dvh;
   display: flex;
@@ -40,11 +41,10 @@ img { max-width: 100%; display: block; }
   justify-content: center;
 }
 
-/* Intro (scrolls on mobile) */
+/* Intro scroll */
 #introScreen {
   display: block;
   min-height: auto;
-  height: auto;
   padding-bottom: 80px;
 }
 
@@ -53,7 +53,7 @@ img { max-width: 100%; display: block; }
   appearance: none;
   border: 0;
   border-radius: 999px;
-  padding: 12px 22px;       /* balanced size */
+  padding: 12px 22px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -65,7 +65,6 @@ img { max-width: 100%; display: block; }
   color: var(--btnText);
   box-shadow: 0 4px 12px rgba(0,0,0,.18);
 }
-.btn-primary:active { transform: translateY(1px); }
 
 .btn-ghost {
   background: rgba(255,255,255,.45);
@@ -74,7 +73,28 @@ img { max-width: 100%; display: block; }
   border: 1px solid rgba(0,0,0,.08);
 }
 
-/* Deck area (horizontal scroll) */
+.btn-primary:active { transform: translateY(1px); }
+
+/* ✨ Blush Guidebook Button */
+.btn-guidebook {
+  background: #e9bfb6;
+  color: #5a3e34;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-block;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.btn-guidebook:hover {
+  opacity: 0.85;
+}
+
+/* Deck stage */
 .stage {
   position: relative;
   width: 100%;
@@ -85,17 +105,17 @@ img { max-width: 100%; display: block; }
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
+
 .deck {
   display: flex;
   gap: 16px;
   align-items: center;
   padding: 0 24px;
 }
+
 .deck img.card {
   width: 180px;
   aspect-ratio: 2/3;
@@ -106,21 +126,16 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
 }
 
-@media (max-width: 420px) { .deck img.card { width: 200px; } }
-@media (hover:hover) {
-  .deck img.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 22px 46px rgba(0,0,0,.34);
-  }
+@media (max-width: 420px) {
+  .deck img.card { width: 200px; }
 }
 
-/* Typography */
-.breathe { text-align: center; margin: 0 0 10px 0; }
+/* Text styling */
+.breathe { text-align: center; margin-bottom: 10px; }
 .breathe strong { font-size: clamp(28px,5vw,44px); }
 .breathe span { display:block; opacity:.8; font-size:clamp(16px,3.4vw,22px); margin-top:6px; }
 
-/* Only stack buttons in the deck pick row and final screen,
-   not globally everywhere */
+/* Stack buttons on deck + final screens */
 .pickRow,
 .finalWrap .actions {
   display: flex;
@@ -129,35 +144,31 @@ img { max-width: 100%; display: block; }
   gap: 14px;
 }
 
-/* Only make those buttons wide in the pick row and final screen */
-.finalWrap .actions .btn,
-.pickRow .btn {
+.pickRow .btn,
+.finalWrap .actions .btn {
   width: 240px;
   border-radius: 32px;
   padding: 12px 0;
-  font-size: 16px;
   font-weight: 600;
-  text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
 /* Final screen layout */
 .finalWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
   max-width: 900px;
   padding: 0 20px;
 }
-.finalWrap h1 { margin: 0 0 12px 0; }
-.finalWrap p { max-width: 620px; margin: 0 auto 32px; line-height: 1.6; }
-.finalWrap .actions { margin-bottom: 28px; }
-.finalWrap .footer { margin-top: 12px; opacity: .9; font-size: .9em; }
+
+.finalWrap p {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
 
 .hidden { display: none !important; }
 
-/* Swipe hint */
+/* Swipe pulse */
 #swipeHint {
   opacity: 0.8;
   font-style: italic;
@@ -165,41 +176,27 @@ img { max-width: 100%; display: block; }
   animation: gentlePulse 3s ease-in-out infinite;
 }
 
-/* Subtle breathing pulse */
 @keyframes gentlePulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
+  0%,100% { opacity: 0.5; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.05); }
 }
-/* Reveal screen: place the two buttons side-by-side */
+
+/* Reveal screen buttons */
 #revealScreen .actions {
   display: flex !important;
   flex-direction: row !important;
   justify-content: center;
   align-items: center;
   gap: 14px;
-  flex-wrap: wrap; /* will stack only on very narrow phones */
-  margin-top: 24px;
+  flex-wrap: wrap;
 }
 
-/* Make reveal buttons natural width so they can fit side-by-side */
 #revealScreen .actions .btn {
   width: auto !important;
   min-width: 140px;
 }
- /* Remove underline from all buttons that are links */
-a.btn {
-  text-decoration: none;
-}
-.finalWrap .footer {
-  position: fixed;        /* stays at bottom of screen */
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  opacity: 0.7;
-  font-size: 0.8em;       /* smaller text */
-  color: var(--ink);
-}
+
+a.btn { text-decoration: none; }
 
 </style>
 </head>
@@ -232,11 +229,14 @@ a.btn {
   <div class="revealWrap" style="text-align:center;">
     <img id="revealCard" alt="Selected card" style="margin:auto;">
     <div class="actions" style="margin-top:20px;">
+
       <button class="btn btn-primary btn-small" id="drawAgain">Draw again</button>
       <button class="btn btn-ghost btn-small" id="goWithin">Go within</button>
-      <button id="guidebook-link" class="btn" style="margin-top:16px; display:none;">
-  Read the Full Guidebook Medicine
-</button>
+
+      <!-- ✨ Blush Guidebook Button -->
+      <button id="guidebook-link" class="btn-guidebook" style="margin-top:16px; display:none;">
+        Read the Full Guidebook Medicine
+      </button>
 
     </div>
   </div>
@@ -248,14 +248,11 @@ a.btn {
     <h1>Return to yourself</h1>
     <p>
       In the quiet, your wisdom gathers itself and returns to your center.
-      You are held, you are home. What you have touched through this deck is not a destination, but a relationship with yourself that will continue to unfold. Return to these cards when you feel lost, when you feel steady, and when you feel in-between.
-Your becoming does not move in a straight line. It moves in spirals, cycles, seasons, and breath.
-May you continue to choose yourself.
-May you continue to soften where it is time.
-May you continue to stand where it matters.
-You do not need to rush your becoming.
-You are already within it
- Linger here, then step back into your life with courage.
+      You are held, you are home. What you have touched through this deck is not a destination,
+      but a relationship with yourself that will continue to unfold. Return to these cards when
+      you feel lost, steady, or in-between. Your becoming moves in spirals, cycles, seasons, breath.
+      You do not need to rush your becoming. You are already within it.
+      Linger here, then step back into your life with courage.
     </p>
 
     <div class="actions">
@@ -263,10 +260,7 @@ You are already within it
       <button class="btn btn-ghost" id="returnToIntro">Return to instructions</button>
       <a href="index.html" class="btn btn-primary">Return Home</a>
     </div>
-
-    
   </div>
-  
 </section>
 
 <script>
@@ -277,7 +271,6 @@ You are already within it
   );
   const backSrc = "img/back.jpeg";
 
-  // Screens / elements
   const intro = document.getElementById("introScreen");
   const deckScreen = document.getElementById("deckScreen");
   const revealScreen = document.getElementById("revealScreen");
@@ -285,89 +278,54 @@ You are already within it
   const deckEl = document.getElementById("deck");
   const revealCard = document.getElementById("revealCard");
 
-  // Buttons
   const begin = document.getElementById("beginBtn");
   const pickForMe = document.getElementById("pickForMe");
   const drawAgain = document.getElementById("drawAgain");
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
   const returnToIntro = document.getElementById("returnToIntro");
-  const guideBtn = document.getElementById("guidebook-link"); // 👈 add this
+  const guideBtn = document.getElementById("guidebook-link");
 
-  const GUIDEBOOK_URL = 'reclaim-yourself-guidebook.pdf';
-
-  const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
-  const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
+  const GUIDEBOOK_URL = "Reclaim Yourself Guidebook.pdf";
 
   const show = (el) => {
-    [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>
+    [intro, deckScreen, revealScreen, finalScreen].forEach(s =>
       s.classList.toggle("hidden", s !== el)
     );
   };
 
-  /* ---------- BUILD THE DECK (for swipe scrolling) ---------- */
+  const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
+
   function buildDeck() {
     deckEl.innerHTML = "";
-    const order = shuffle(shuffle(fronts));
-    order.forEach((src) => {
+    shuffle(shuffle(fronts)).forEach(src => {
       const card = document.createElement("img");
+      card.className = "card";
       card.src = backSrc;
-      card.classList.add("card");
       card.dataset.front = src;
       card.addEventListener("click", () => reveal(src));
       deckEl.appendChild(card);
     });
   }
 
-  /* ---------- REVEAL ---------- */
   const reveal = (src) => {
     revealCard.src = src;
     show(revealScreen);
 
-    // 👇 show & wire the guidebook button when a card is revealed
-    if (guideBtn) {
-      guideBtn.style.display = "inline-block";
-      guideBtn.onclick = () => {
-        window.open(GUIDEBOOK_URL, "_blank");
-      };
-    }
+    guideBtn.style.display = "inline-block";
+    guideBtn.onclick = () => window.open(GUIDEBOOK_URL, "_blank");
   };
 
-  /* ---------- BUTTON ACTIONS ---------- */
-  begin.addEventListener("click", () => {
-    buildDeck();
-    show(deckScreen);
-  });
-
-  pickForMe.addEventListener("click", () => {
-    const r = Math.floor(Math.random() * fronts.length);
-    reveal(fronts[r]);
-  });
-
-  drawAgain.addEventListener("click", () => {
-    buildDeck();
-    show(deckScreen);
-
-    // optionally hide the guidebook button again until a new card is revealed
-    if (guideBtn) guideBtn.style.display = "none";
-  });
-
+  begin.addEventListener("click", () => { buildDeck(); show(deckScreen); });
+  pickForMe.addEventListener("click", () => reveal(fronts[Math.floor(Math.random() * fronts.length)]));
+  drawAgain.addEventListener("click", () => { buildDeck(); show(deckScreen); guideBtn.style.display = "none"; });
   goWithin.addEventListener("click", () => show(finalScreen));
   finalBack.addEventListener("click", () => show(deckScreen));
   returnToIntro.addEventListener("click", () => show(intro));
 
-  /* ---------- PRELOAD ---------- */
-  preload([
-    backSrc,
-    ...fronts,
-    "img/title.jpeg",
-    "img/description.jpeg",
-    "img/instruction_01.jpeg",
-    "img/instruction_02.jpeg"
-  ]);
-
   show(intro);
 })();
 </script>
+
 </body>
 </html>

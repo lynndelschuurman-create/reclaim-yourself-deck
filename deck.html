@@ -234,6 +234,10 @@ a.btn {
     <div class="actions" style="margin-top:20px;">
       <button class="btn btn-primary btn-small" id="drawAgain">Draw again</button>
       <button class="btn btn-ghost btn-small" id="goWithin">Go within</button>
+      <button id="guidebook-link" class="btn" style="margin-top:16px; display:none;">
+  Read the Full Guidebook Medicine
+</button>
+
     </div>
   </div>
 </section>
@@ -291,6 +295,11 @@ You are already within it
 
   const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
   const preload = (srcs) => srcs.forEach((s) => { const i = new Image(); i.src = s; });
+const GUIDEBOOK_URL = 'reclaim-yourself-guidebook.pdf';
+
+guideBtn.onclick = () => {
+  window.open(GUIDEBOOK_URL, '_blank');
+};
 
   const show = (el) => {
     [intro, deckScreen, revealScreen, finalScreen].forEach((s) =>

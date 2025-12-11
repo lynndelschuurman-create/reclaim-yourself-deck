@@ -75,7 +75,7 @@ img { max-width: 100%; display: block; }
 
 .btn-primary:active { transform: translateY(1px); }
 
-/* ✨ Blush Guidebook Button */
+/* Blush Guidebook Button */
 .btn-guidebook {
   background: #e9bfb6;
   color: #5a3e34;
@@ -233,7 +233,7 @@ a.btn { text-decoration: none; }
       <button class="btn btn-primary btn-small" id="drawAgain">Draw again</button>
       <button class="btn btn-ghost btn-small" id="goWithin">Go within</button>
 
-      <!-- ✨ Blush Guidebook Button -->
+      <!-- Guidebook Button -->
       <button id="guidebook-link" class="btn-guidebook" style="margin-top:16px; display:none;">
         Read the Full Guidebook Medicine
       </button>
@@ -286,7 +286,8 @@ a.btn { text-decoration: none; }
   const returnToIntro = document.getElementById("returnToIntro");
   const guideBtn = document.getElementById("guidebook-link");
 
-  const GUIDEBOOK_URL = "Reclaim Yourself Guidebook.pdf";
+  /* IMPORTANT: this MUST match the actual filename exactly */
+  const GUIDEBOOK_URL = "Reclaim Yourself Guidbook.pdf";
 
   const show = (el) => {
     [intro, deckScreen, revealScreen, finalScreen].forEach(s =>
@@ -316,9 +317,22 @@ a.btn { text-decoration: none; }
     guideBtn.onclick = () => window.open(GUIDEBOOK_URL, "_blank");
   };
 
-  begin.addEventListener("click", () => { buildDeck(); show(deckScreen); });
-  pickForMe.addEventListener("click", () => reveal(fronts[Math.floor(Math.random() * fronts.length)]));
-  drawAgain.addEventListener("click", () => { buildDeck(); show(deckScreen); guideBtn.style.display = "none"; });
+  begin.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+  });
+
+  pickForMe.addEventListener("click", () => {
+    const r = Math.floor(Math.random() * fronts.length);
+    reveal(fronts[r]);
+  });
+
+  drawAgain.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+    guideBtn.style.display = "none";
+  });
+
   goWithin.addEventListener("click", () => show(finalScreen));
   finalBack.addEventListener("click", () => show(deckScreen));
   returnToIntro.addEventListener("click", () => show(intro));

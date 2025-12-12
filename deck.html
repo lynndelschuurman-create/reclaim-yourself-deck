@@ -114,6 +114,33 @@ img { max-width: 100%; display: block; }
 #guidebook-icon {
   padding: 10px 14px;
   font-size: 18px;
+  /* --- FORCE FINAL SCREEN CENTERING (text + layout) --- */
+#finalScreen {
+  text-align: center;
+}
+
+#finalScreen .finalWrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centers children like h1, p, actions */
+}
+
+#finalScreen .finalWrap p {
+  max-width: 620px;
+  margin: 0 auto 32px;   /* centers paragraph block */
+  text-align: center;
+}
+
+/* FINAL screen buttons — stacked vertically and centered */
+#finalScreen .actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 </style>
 </head>

@@ -210,9 +210,10 @@ img { max-width: 100%; display: block; }
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
   const returnToIntro = document.getElementById("returnToIntro");
-  const guideBtn = document.getElementById("guidebook-link");
 
-  /* IMPORTANT: this MUST match the actual filename exactly */
+  // 📖 guidebook icon (ghost-style button)
+  const guidebookIcon = document.getElementById("guidebook-icon");
+
   const GUIDEBOOK_URL = "Reclaim Yourself Guidbook.pdf";
 
   const show = (el) => {
@@ -225,11 +226,10 @@ img { max-width: 100%; display: block; }
 
   function buildDeck() {
     deckEl.innerHTML = "";
-    shuffle(shuffle(fronts)).forEach(src => {
+    shuffle(fronts).forEach(src => {
       const card = document.createElement("img");
       card.className = "card";
       card.src = backSrc;
-      card.dataset.front = src;
       card.addEventListener("click", () => reveal(src));
       deckEl.appendChild(card);
     });
@@ -238,9 +238,6 @@ img { max-width: 100%; display: block; }
   const reveal = (src) => {
     revealCard.src = src;
     show(revealScreen);
-
-    guideBtn.style.display = "inline-block";
-    guideBtn.onclick = () => window.open(GUIDEBOOK_URL, "_blank");
   };
 
   begin.addEventListener("click", () => {
@@ -256,16 +253,18 @@ img { max-width: 100%; display: block; }
   drawAgain.addEventListener("click", () => {
     buildDeck();
     show(deckScreen);
-    guideBtn.style.display = "none";
   });
 
   goWithin.addEventListener("click", () => show(finalScreen));
   finalBack.addEventListener("click", () => show(deckScreen));
   returnToIntro.addEventListener("click", () => show(intro));
 
+  guidebookIcon.addEventListener("click", () => {
+    window.open(GUIDEBOOK_URL, "_blank");
+  });
+
   show(intro);
 })();
 </script>
-
 </body>
 </html>

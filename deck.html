@@ -170,23 +170,27 @@ img { max-width: 100%; display: block; }
 
 <!-- FINAL -->
 <section class="screen centered hidden" id="finalScreen">
-  <div style="max-width:600px;text-align:center;">
+  <div class="finalWrap">
     <h1>Return to yourself</h1>
     <p>
-      You are already within your becoming.
-      Linger, then return to your life with courage.
+      In the quiet, your wisdom gathers itself and returns to your center.
+      You are held, you are home. What you have touched through this deck is not a destination,
+      but a relationship with yourself that will continue to unfold. Return to these cards when
+      you feel lost, steady, or in-between. Your becoming moves in spirals, cycles, seasons, breath.
+      You do not need to rush your becoming. You are already within it.
+      Linger here, then step back into your life with courage.
     </p>
 
     <div class="actions">
       <button class="btn btn-primary" id="finalBack">Back to deck</button>
       <button class="btn btn-ghost" id="returnToIntro">Return to instructions</button>
+      <a href="index.html" class="btn btn-primary">Return Home</a>
     </div>
   </div>
 </section>
 
 <script>
 (function () {
-
   const COUNT = 36;
   const fronts = Array.from({ length: COUNT }, (_, i) =>
     `img/card_${String(i + 1).padStart(2, "0")}.jpeg`
@@ -197,7 +201,6 @@ img { max-width: 100%; display: block; }
   const deckScreen = document.getElementById("deckScreen");
   const revealScreen = document.getElementById("revealScreen");
   const finalScreen = document.getElementById("finalScreen");
-
   const deckEl = document.getElementById("deck");
   const revealCard = document.getElementById("revealCard");
 
@@ -207,52 +210,62 @@ img { max-width: 100%; display: block; }
   const goWithin = document.getElementById("goWithin");
   const finalBack = document.getElementById("finalBack");
   const returnToIntro = document.getElementById("returnToIntro");
-  const guidebookIcon = document.getElementById("guidebook-icon");
+  const guideBtn = document.getElementById("guidebook-link");
 
+  /* IMPORTANT: this MUST match the actual filename exactly */
   const GUIDEBOOK_URL = "Reclaim Yourself Guidbook.pdf";
 
-  function show(el) {
+  const show = (el) => {
     [intro, deckScreen, revealScreen, finalScreen].forEach(s =>
       s.classList.toggle("hidden", s !== el)
     );
-  }
+  };
 
-  function shuffle(arr) {
-    return arr.slice().sort(() => Math.random() - 0.5);
-  }
+  const shuffle = (arr) => arr.slice().sort(() => Math.random() - 0.5);
 
   function buildDeck() {
     deckEl.innerHTML = "";
-    shuffle(fronts).forEach(src => {
+    shuffle(shuffle(fronts)).forEach(src => {
       const card = document.createElement("img");
       card.className = "card";
       card.src = backSrc;
-      card.onclick = () => reveal(src);
+      card.dataset.front = src;
+      card.addEventListener("click", () => reveal(src));
       deckEl.appendChild(card);
     });
   }
 
-  function reveal(src) {
+  const reveal = (src) => {
     revealCard.src = src;
     show(revealScreen);
-  }
 
-  begin.onclick = () => { buildDeck(); show(deckScreen); };
-  pickForMe.onclick = () => reveal(fronts[Math.floor(Math.random() * fronts.length)]);
-  drawAgain.onclick = () => { buildDeck(); show(deckScreen); };
-  goWithin.onclick = () => show(finalScreen);
-  finalBack.onclick = () => show(deckScreen);
-  returnToIntro.onclick = () => show(intro);
-
-  guidebookIcon.onclick = () => {
-    window.open(GUIDEBOOK_URL, "_blank");
+    guideBtn.style.display = "inline-block";
+    guideBtn.onclick = () => window.open(GUIDEBOOK_URL, "_blank");
   };
 
-  show(intro);
+  begin.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+  });
 
+  pickForMe.addEventListener("click", () => {
+    const r = Math.floor(Math.random() * fronts.length);
+    reveal(fronts[r]);
+  });
+
+  drawAgain.addEventListener("click", () => {
+    buildDeck();
+    show(deckScreen);
+    guideBtn.style.display = "none";
+  });
+
+  goWithin.addEventListener("click", () => show(finalScreen));
+  finalBack.addEventListener("click", () => show(deckScreen));
+  returnToIntro.addEventListener("click", () => show(intro));
+
+  show(intro);
 })();
 </script>
 
 </body>
 </html>
-

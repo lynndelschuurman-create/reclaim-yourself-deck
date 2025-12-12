@@ -197,6 +197,10 @@ img { max-width: 100%; display: block; }
 }
 
 a.btn { text-decoration: none; }
+/* Prevent iOS Safari bottom bar from covering content */
+#revealScreen {
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
+}
 
 </style>
 </head>

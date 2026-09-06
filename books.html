@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Books — Reclaim Yourself</title>
+<link rel="icon" href="favicon.png" />
+
+<style>
+:root {
+  --bg:#e9bfb6;
+  --ink:#5a3e34;
+  --btn:#f1d48b;
+  --btnText:#3e2b25;
+  --card:rgba(255,249,242,.52);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-serif, Georgia, serif;
+}
+
+body {
+  padding: 52px 20px 60px;
+}
+
+main {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: clamp(38px, 7vw, 58px);
+  letter-spacing: 1px;
+}
+
+.intro {
+  max-width: 640px;
+  margin: 0 auto 38px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+  opacity: .88;
+}
+
+.books {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.book {
+  background: var(--card);
+  border: 1px solid rgba(90,62,52,.18);
+  border-radius: 24px;
+  padding: 28px 24px 30px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.11);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book img {
+  width: 230px;
+  max-width: 76%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
+  margin-bottom: 22px;
+}
+
+.book h2 {
+  font-size: clamp(25px, 4vw, 34px);
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-style: italic;
+  margin: 0 0 18px;
+  opacity: .78;
+}
+
+.book p {
+  line-height: 1.65;
+  margin: 0 auto 22px;
+  max-width: 370px;
+  opacity: .92;
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 32px;
+  padding: 12px 18px;
+  width: 240px;
+  max-width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--btn);
+  color: var(--btnText);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  text-decoration: none;
+  display: inline-block;
+  margin-top: auto;
+}
+
+.home {
+  margin-top: 34px;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: .9rem;
+  opacity: .75;
+}
+
+@media (max-width: 720px) {
+  .books { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<h1>My Books</h1>
+
+<p class="intro">
+Poetry and reflections for the return to self — through remembering,
+reclaiming, and learning to stay present with your own life.
+</p>
+
+<section class="books">
+
+<article class="book">
+
+<img src="book_cover.png"
+alt="Reclaiming My Place in My Own Life book cover">
+
+<h2>Reclaiming My Place in My Own Life</h2>
+
+<p class="subtitle">A poetic journey home to myself</p>
+
+<p>
+A collection born from the ache of becoming — a journey of remembering,
+healing, and returning home to myself. Each piece is a reclamation of
+voice, worth, softness, and belonging.
+</p>
+
+<a class="btn"
+href="https://www.amazon.ca/dp/B0G16P4ZL1"
+target="_blank">
+Order on Amazon
+</a>
+
+</article>
+
+
+<article class="book">
+
+<img src="Embodied_Love_Cover.jpg"
+alt="Embodied Love: The Practice of Staying book cover">
+
+<h2>Embodied Love</h2>
+
+<p class="subtitle">The Practice of Staying</p>
+
+<p>
+A collection of poetry and reflections on presence, self-belonging,
+love, desire, grief, and becoming. These pages explore what it means
+to stay with your own life, let reality refine you, and allow love
+to become something you embody.
+</p>
+
+<a class="btn"
+href="https://www.amazon.ca/Embodied-Love-Practice-Lynndel-Branton/dp/B0HGMQTCH1/"
+target="_blank">
+Order on Amazon
+</a>
+
+</article>
+
+</section>
+
+<div class="home">
+<a class="btn" href="index.html">Return Home</a>
+</div>
+
+<footer>© Lynndel - Reclaim Yourself</footer>
+
+</main>
+</body>
+</html>

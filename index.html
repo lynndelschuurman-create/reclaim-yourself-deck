@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Reclaim Yourself — Home</title>
+<meta name="description" content="Explore two card decks: Reclaim Yourself, free online or available in print, and Reclaim &amp; Return, a paid interactive online experience. Discover books by Lynndel." />
 <link rel="icon" href="favicon.png" />
 
 <style>
@@ -171,6 +172,68 @@ footer {
   main { padding-top: 220px; margin-top: -60px; }
   main h1 { top: -40px; font-size: 36px; }
 }
+
+/* Clear product choices, with the established rose and gold palette. */
+html { scroll-behavior: smooth; }
+header { position: relative; }
+main { max-width: 1000px; padding: 0 22px 30px; margin-top: -65px; opacity: 1; animation: none; }
+main h1 { top: 0; margin-bottom: 14px; }
+main > h2 { margin: 0 auto 14px; font-size: clamp(20px,3vw,25px); }
+.intro { max-width: 550px; margin: 0 auto; line-height: 1.6; }
+.quick-links, .more-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px 28px; margin: 24px 0 36px; }
+a { color: var(--ink); text-underline-offset: 4px; }
+a:focus-visible { outline: 3px solid #5a3e34; outline-offset: 5px; }
+main h2.section-title { margin: 0 auto 24px; font-size: clamp(25px,4vw,32px); font-weight: 400; opacity: 1; }
+.deck-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.featured { margin: 0; width: 100%; padding: 28px 24px; display: flex; flex-direction: column; align-items: center; }
+.featured img { height: 210px; width: auto; max-width: 100%; object-fit: contain; }
+.featured .label, .label { font: 600 11px/1.6 ui-sans-serif,system-ui,sans-serif; letter-spacing: 1.5px; margin-bottom: 10px; opacity: 1; }
+.featured .format { font-size: 15px; margin-bottom: 18px; }
+.btn { width: 100%; max-width: 280px; padding: 14px 12px; line-height: 1.35; min-height: 48px; }
+.featured a.btn:first-of-type { margin-top: auto; }
+.secondary { background: transparent; border: 1px solid #79564a; box-shadow: none; }
+.featured .detail { font: 13px/1.5 ui-sans-serif,system-ui,sans-serif; margin: 4px 0 0; }
+.books-section { margin: 32px auto; padding: 30px 24px; border-top: 1px solid rgba(90,62,52,.25); border-bottom: 1px solid rgba(90,62,52,.25); }
+.books-section p:not(.label) { max-width: 600px; margin: 0 auto 20px; line-height: 1.7; }
+.books-section h2.section-title { margin-bottom: 12px; }
+.more-links { margin-bottom: 16px; }
+footer { margin: 10px 20px 30px; animation: none; }
+@media(max-width:600px) {
+  header img { height: 180px; object-fit: cover; }
+  main { padding: 0 16px 24px; margin-top: -45px; }
+  main h1 { top: 0; font-size: 36px; }
+  .deck-grid { grid-template-columns: 1fr; gap: 22px; }
+  .featured { padding: 24px 20px; }
+  .featured img { height: 190px; }
+  .quick-links { margin-bottom: 28px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
+
+
+.books-section { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; text-align: left; background: rgba(255,249,242,.5); border: 1px solid rgba(90,62,52,.18); border-radius: 22px; margin-top: 12px; margin-bottom: 42px; }
+.book-art { display: flex; gap: 16px; justify-content: center; align-items: center; }
+.book-art img { width: 30%; max-width: 140px; height: auto; box-shadow: 0 5px 15px #5a3e3433; }
+.book-copy .btn { margin-left: 0; text-align: center; }
+.book-titles { list-style: none; margin-bottom: 20px; line-height: 1.8; }
+.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 42px 0 30px; padding-top: 30px; border-top: 1px solid #5a3e3440; }
+.more-grid h2.section-title { font-size: 25px; margin-bottom: 12px; }
+.more-grid p { line-height: 1.6; margin-bottom: 16px; }
+.text-link { display: inline-block; padding: 10px; }
+@media(max-width:600px) { .books-section,.more-grid { grid-template-columns: 1fr; } .books-section { text-align: center; } .book-copy .btn { margin-left: auto; } .book-art img { max-width: 125px; } }
+
+.book-cover-link { display: block; flex: 0 0 30%; max-width: 140px; }
+.book-art .book-cover-link img { display: block; width: 100%; max-width: 100%; }
+
+.author-intro { display: grid; grid-template-columns: 280px 1fr; align-items: center; gap: 40px; text-align: left; margin: 12px auto 40px; }
+.author-intro > img { display: block; width: 100%; height: auto; border-radius: 22px; box-shadow: 0 8px 24px rgba(90,62,52,.15); }
+.author-intro h2.section-title { margin-bottom: 16px; }
+.author-intro p:not(.label) { font-size: 17px; line-height: 1.7; }
+.author-intro .text-link { padding-left: 0; margin-top: 8px; }
+@media(max-width:600px) { .author-intro { grid-template-columns: 1fr; gap: 24px; text-align: center; } .author-intro > img { max-width: 300px; margin: 0 auto; } }
+
+.author-intro .btn { margin-left: 0; text-align: center; }
+@media(max-width:600px) { .author-intro .btn { margin-left: auto; } }
+.book-titles a { text-decoration: none; }
 </style>
 </head>
 
@@ -183,24 +246,61 @@ footer {
   <h1>Reclaim Yourself</h1>
   <h2>For women who are ready to reclaim their place in their own lives.</h2>
 
-<section class="featured">
-  <img src="img/reclaim-return.jpeg" alt="Reclaim &amp; Return card">
-  <h3>Reclaim &amp; Return</h3>
-  <p>Inspired by my book and the Reclaim Yourself card deck, Reclaim &amp; Return is a guided digital card experience inviting you to pause, reflect, and return to the quiet wisdom of your own heart.</p>
-  <a class="btn" href="https://app.reclaim-yourself.ca/" target="_blank" rel="noopener">Enter Reclaim &amp; Return</a>
+<p class="intro">Books, card decks, and personal sessions to support your return to yourself.</p>
+<nav class="quick-links" aria-label="Explore this page"><a href="#books">Books</a><a href="#decks">Card Decks</a><a href="sessions.html">Sessions</a><a href="about.html">About</a></nav>
+<section class="author-intro" aria-labelledby="welcome-title">
+  <img src="Lynndel_Portrait.jpeg" width="1254" height="1254" alt="Lynndel smiling in a pink dress beside flowers at sunset">
+  <div>
+    <p class="label">THE HEART BEHIND RECLAIM YOURSELF</p>
+    <h2 id="welcome-title" class="section-title">Welcome. I’m Lynndel.</h2>
+    <p>I’m the author and creator behind Reclaim Yourself. Through my books, card decks, and personal sessions, I offer invitations to pause, reconnect with yourself, and reclaim your place in your own life.</p>
+    <a class="text-link" href="about.html">Read My Story &rarr;</a>
+    <a class="btn" href="https://www.facebook.com/ReclaimingMyselfSchuurman/" target="_blank" rel="noopener">Contact Me on Facebook</a>
+  </div>
 </section>
 
-<button class="btn" onclick="location.href='deck.html'">Draw a Card</button>
+<section class="books-section" id="books" aria-labelledby="books-title">
+  <div class="book-art" aria-label="Book covers">
+    <a class="book-cover-link" href="https://www.amazon.ca/Reclaiming-Myself-Lynndel-Schuurman/dp/1452590206" target="_blank" rel="noopener" aria-label="Buy Reclaiming Myself on Amazon.ca (opens in a new tab)"><img src="Reclaiming_Myself_Cover.jpg" alt="Reclaiming Myself by Lynndel Schuurman book cover"></a>
+    <img src="book_cover.png" alt="Reclaiming My Place in My Own Life book cover">
+    <img src="Embodied_Love_Cover.jpg" alt="Embodied Love: The Practice of Staying book cover">
+  </div>
+  <div class="book-copy">
+    <p class="label">WORDS TO WALK BESIDE YOU</p>
+    <h2 id="books-title" class="section-title">My Books</h2>
+    <p>Stories and reflections on reclaiming yourself and your place in your own life.</p>
+    <ul class="book-titles"><li><a href="https://www.amazon.ca/Reclaiming-Myself-Lynndel-Schuurman/dp/1452590206" target="_blank" rel="noopener"><em>Reclaiming Myself</em></a></li><li><em>Reclaiming My Place in My Own Life</em></li><li><em>Embodied Love: The Practice of Staying</em></li></ul>
+    <a class="btn" href="books.html">Explore My Books</a>
+  </div>
+</section>
 
-<button class="btn" onclick="location.href='sessions.html'">Book a Reclaim Yourself Session</button>
-
-<button class="btn" onclick="location.href='books.html'">Explore My Books</button>
-
-<button class="btn" onclick="location.href='about.html'">About Reclaim Yourself</button>
-
-<button class="btn" onclick="window.open('https://www.makeplayingcards.com/sell/reclaim-yourself', '_blank')">
-  Order the Reclaim Yourself Deck
-</button>
+<section id="decks" aria-labelledby="decks-title">
+  <h2 id="decks-title" class="section-title">Explore the Card Decks</h2>
+  <div class="deck-grid">
+    <article class="featured" aria-labelledby="return-title">
+      <img src="img/reclaim-return.jpeg" alt="Reclaim &amp; Return deck artwork">
+      <p class="label">PAID · ONLINE ONLY</p>
+      <h3 id="return-title">Reclaim &amp; Return</h3>
+      <p>An interactive online card deck inviting you to pause, reflect, and return to the quiet wisdom of your own heart.</p>
+      <p class="format">Use it on your phone or computer.<br>Available online only — no printed deck.</p>
+      <a class="btn" href="https://reclaimandreturn.netlify.app/" target="_blank" rel="noopener">Explore Reclaim &amp; Return</a>
+      <p class="detail">Paid access · $22 CAD</p>
+    </article>
+    <article class="featured" aria-labelledby="yourself-title">
+      <img src="img/title.jpeg" alt="Reclaim Yourself companion card deck">
+      <p class="label">FREE ONLINE · ALSO AVAILABLE IN PRINT</p>
+      <h3 id="yourself-title">Reclaim Yourself</h3>
+      <p>The companion card deck to my book, <em>Reclaiming My Place in My Own Life.</em></p>
+      <p class="format">Draw a card online for free, or purchase the printed deck to hold in your hands.</p>
+      <a class="btn" href="deck.html">Draw a Free Card</a>
+      <a class="btn secondary" href="https://www.makeplayingcards.com/sell/reclaim-yourself" target="_blank" rel="noopener">Buy the Printed Deck</a>
+    </article>
+  </div>
+</section>
+<div class="more-grid">
+  <section><p class="label">PERSONAL CONNECTION</p><h2 class="section-title">Reclaim Yourself Sessions</h2><p>Learn more about my sessions and how we can connect.</p><a class="text-link" href="sessions.html">Explore Sessions &rarr;</a></section>
+  <section><p class="label">MEET THE AUTHOR &amp; CREATOR</p><h2 class="section-title">About Lynndel</h2><p>Discover the story behind Reclaim Yourself and the heart of my work.</p><a class="text-link" href="about.html">Read My Story &rarr;</a></section>
+</div>
 
   <p style="margin-top:30px; font-size:0.95em; opacity:0.85;">
    Follow <strong>Reclaim Yourself</strong> on  
